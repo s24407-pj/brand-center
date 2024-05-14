@@ -1,33 +1,88 @@
+/* handy css variables from https://open-props.style/ */
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
+@layer base {
+	/*
+		Additional "resets" based on Josh's article:
+		https://www.joshwcomeau.com/css/custom-css-reset/
+	*/
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
+	body {
+		-webkit-font-smoothing: antialiased;
+		isolation: isolate;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		min-height: 100svh;
+	}
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
+	input,
+	button,
+	textarea,
+	select {
+		font: inherit;
+	}
+	p,
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		overflow-wrap: break-word;
+	}
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		text-wrap: balance;
+	}
+
+	p {
+		text-wrap: pretty;
+	}
+
+	:root {
+		--font-sans: ui-sans-serif;
+		--font-fancy: 'Lemonada Variable';
+		--padding-inline: clamp(1rem, 5vw, 3rem);
+		--radius: 1rem;
+
+		@apply transition;
+	}
+
+	/* light theme setup */
+	:root {
+		color-scheme: light;
+	}
+
+	/* dark theme setup */
+	[data-theme='dark'] {
+		color-scheme: dark;
+	}
+
+	body {
+		view-transition-name: body;
+	}
+
+
+	@media (prefers-reduced-motion: no-preference) {
+		/* smooth scrolling */
+		:has(:target) {
+			scroll-behavior: smooth;
+			scroll-padding-top: 4rem;
+		}
+	}
 }

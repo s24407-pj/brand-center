@@ -1,0 +1,64 @@
+.svg-theme-toggle {
+	--duration: 500ms;
+}
+
+.svg-theme-toggle .moon,
+.svg-theme-toggle .sun,
+.svg-theme-toggle .sun-beams {
+	transform-origin: center center;
+}
+
+html[data-theme='dark'] .svg-theme-toggle .sun {
+	transform: scale(1.75);
+}
+
+html[data-theme='dark'] .svg-theme-toggle .sun-beams {
+	opacity: 0;
+}
+
+html[data-theme='dark'] .svg-theme-toggle .moon > circle {
+	transform: translateX(-7px);
+
+	@supports (cx: 1) {
+		transform: translateX(0);
+		cx: 17;
+	}
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.svg-theme-toggle .sun {
+		transition: transform var(--duration) var(--ease-elastic-out-3);
+	}
+
+	.svg-theme-toggle .sun-beams {
+		transition:
+			transform var(--duration) var(--ease-elastic-out-4),
+			opacity var(--duration) var(--ease-3);
+	}
+
+	.svg-theme-toggle .moon > circle {
+		transition: transform calc(var(--duration) / 2) var(--ease-out-5);
+	}
+
+	@supports (cx: 1) {
+		.svg-theme-toggle .moon > circle {
+			transition: cx calc(var(--duration) / 2) var(--ease-out-5);
+		}
+	}
+
+	html[data-theme='dark'] .svg-theme-toggle .sun {
+		transform: scale(1.75);
+		transition-timing-function: var(--ease-3);
+		transition-duration: calc(var(--duration) / 2);
+	}
+
+	html[data-theme='dark'] .svg-theme-toggle .sun-beams {
+		transform: rotateZ(-25deg);
+		transition-duration: calc(var(--duration) / 3);
+	}
+
+	html[data-theme='dark'] .svg-theme-toggle .moon > circle {
+		transition-delay: calc(var(--duration) / 2);
+		transition-duration: var(--duration);
+	}
+}

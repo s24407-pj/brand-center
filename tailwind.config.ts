@@ -1,5 +1,6 @@
 import type {Config} from 'tailwindcss'
 import daisyui from 'daisyui'
+import themes from 'daisyui/src/theming/themes'
 
 const config: Config = {
 	content: [
@@ -7,11 +8,23 @@ const config: Config = {
 		'./src/components/**/*.{js,ts,jsx,tsx,mdx}',
 		'./src/app/**/*.{js,ts,jsx,tsx,mdx}',
 	],
+
 	theme: {
 		extend: {},
 	},
 	daisyui: {
-		themes: ['lofi', 'business'],
+		themes: [
+			{
+				light: {
+					...themes.lofi,
+				},
+			},
+			{
+				dark: {
+					...themes.business,
+				},
+			},
+		],
 	},
 	plugins: [daisyui],
 }

@@ -1,9 +1,28 @@
-export default function ThemeToggleIcon() {
-	const [colorTheme, window.toggleTheme] = toggleTheme()
-	 = setTheme
+'use client'
+import './ThemeToggle.css'
+import {useEffect} from 'react'
+import {themeChange} from 'theme-change'
+
+export default function ThemeToggle() {
+	useEffect(() => {
+		themeChange(false)
+		// 👆 false parameter is required for react project
+		return () => {
+			themeChange(false)
+		}
+	}, [])
+
 	return (
-		<button onClick={() => setTheme("light")}>
-			<svg className="w-4" aria-hidden="true" viewBox="0 0 24 24">
+		<button
+			className="btn btn-circle btn-ghost"
+			data-toggle-theme="light,dark"
+			data-act-class="ACTIVECLASS"
+		>
+			<svg
+				className="svg-theme-toggle h-5 w-5"
+				aria-hidden="true"
+				viewBox="0 0 24 24"
+			>
 				<mask className="moon" id="moon-mask">
 					<rect x="0" y="0" width="100%" height="100%" fill="white" />
 					<circle cx="24" cy="10" r="6" fill="black" />
@@ -16,7 +35,7 @@ export default function ThemeToggleIcon() {
 					mask="url(#moon-mask)"
 					fill="currentColor"
 				/>
-				<g className="sun-beams" stroke="currentColor" stroke-width="2px">
+				<g className="sun-beams" stroke="currentColor" strokeWidth="2px">
 					<line x1="12" y1="1" x2="12" y2="3" />
 					<line x1="12" y1="21" x2="12" y2="23" />
 					<line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />

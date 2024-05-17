@@ -1,4 +1,5 @@
-import ThemeToggleIcon from './ThemeToggleIcon'
+import ThemeToggle from './ThemeToggle'
+
 
 export default function Header() {
 	return (
@@ -41,7 +42,8 @@ export default function Header() {
 				<a className="btn btn-ghost text-xl">Brand Center</a>
 			</div>
 			<div className="navbar-end">
-				<ThemeToggleIcon />
+				 <ThemeToggle /> 
+				
 				<button className="btn btn-circle btn-ghost">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"

@@ -1,5 +1,6 @@
+@import 'open-props/easings';
+@import 'open-props/shadows';
 /* handy css variables from https://open-props.style/ */
-
 
 @tailwind base;
 @tailwind components;
@@ -55,12 +56,9 @@
 	}
 
 	:root {
-		--font-sans: ui-sans-serif;
-		--font-fancy: 'Lemonada Variable';
+		--font-sans: system-ui, sans-serif;
 		--padding-inline: clamp(1rem, 5vw, 3rem);
 		--radius: 1rem;
-
-		@apply transition;
 	}
 
 	/* light theme setup */
@@ -73,10 +71,47 @@
 		color-scheme: dark;
 	}
 
-	body {
-		view-transition-name: body;
+	html {
+		@apply transition-colors;
 	}
 
+	/* SmolCSS Stephanie + Kevin-style breakout grid
+	https://www.youtube.com/watch?v=c13gpBrnGEw */
+	.content-grid,
+	.full-width {
+		--_content-max-width: 70ch;
+		--_breakout-max-width: 90ch;
+
+		--_full-width-size: minmax(var(--padding-inline), 1fr);
+		--_breakout-size: minmax(
+			0,
+			calc((var(--_breakout-max-width) - var(--_content-max-width)) / 2)
+		);
+		--_content-size: min(
+			100% - var(--padding-inline) * 2,
+			var(--_content-max-width)
+		);
+
+		display: grid;
+		grid-template-columns:
+			[full-width-start] var(--_full-width-size)
+			[breakout-start] var(--_breakout-size)
+			[content-start] var(--_content-size) [content-end]
+			var(--_breakout-size) [breakout-end]
+			var(--_full-width-size) [full-width-end];
+
+		> :not(.breakout, .full-width) {
+			grid-column: content;
+		}
+
+		> .breakout {
+			grid-column: breakout;
+		}
+
+		> .full-width {
+			grid-column: full-width;
+		}
+	}
 
 	@media (prefers-reduced-motion: no-preference) {
 		/* smooth scrolling */

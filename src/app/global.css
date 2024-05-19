@@ -61,16 +61,6 @@
 		--radius: 1rem;
 	}
 
-	/* light theme setup */
-	:root {
-		color-scheme: light;
-	}
-
-	/* dark theme setup */
-	[data-theme='dark'] {
-		color-scheme: dark;
-	}
-
 	html {
 		@apply transition-colors;
 	}

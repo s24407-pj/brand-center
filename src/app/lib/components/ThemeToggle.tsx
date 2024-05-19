@@ -15,8 +15,9 @@ export default function ThemeToggle() {
 	return (
 		<button
 			className="btn btn-circle btn-ghost"
-			data-toggle-theme="light,dark"
-			data-act-class="ACTIVECLASS"
+			data-toggle-theme="dark,light"
+			data-act-class="theme-toggle-active"
+			aria-label="Toggle theme"
 		>
 			<svg
 				className="svg-theme-toggle h-5 w-5"

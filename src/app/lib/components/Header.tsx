@@ -1,12 +1,16 @@
 import ThemeToggle from './ThemeToggle'
 
-
 export default function Header() {
 	return (
-		<div className="navbar bg-base-100">
+		<header className="navbar bg-base-100">
 			<div className="navbar-start">
 				<div className="dropdown">
-					<div tabIndex={0} role="button" className="btn btn-circle btn-ghost">
+					<div
+						tabIndex={0}
+						role="button"
+						className="btn btn-circle btn-ghost"
+						aria-label="menu"
+					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							className="h-5 w-5"
@@ -42,9 +46,9 @@ export default function Header() {
 				<a className="btn btn-ghost text-xl">Brand Center</a>
 			</div>
 			<div className="navbar-end">
-				 <ThemeToggle /> 
-				
-				<button className="btn btn-circle btn-ghost">
+				<ThemeToggle />
+
+				<button className="btn btn-circle btn-ghost" aria-label="search">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						className="h-5 w-5"
@@ -60,7 +64,7 @@ export default function Header() {
 						/>
 					</svg>
 				</button>
-				<button className="btn btn-circle btn-ghost">
+				<button className="btn btn-circle btn-ghost" aria-label="notifications">
 					<div className="indicator">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -82,6 +86,6 @@ export default function Header() {
 					</div>
 				</button>
 			</div>
-		</div>
+		</header>
 	)
 }

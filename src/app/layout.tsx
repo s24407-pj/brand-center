@@ -1,10 +1,8 @@
-
 import './global.css'
 
+import {SpeedInsights} from '@vercel/speed-insights/next'
 import {Metadata} from 'next'
 import Header from './lib/components/Header'
-
-
 
 import Footer from './lib/components/Footer'
 
@@ -20,6 +18,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
 				<Header />
 				<main>{children}</main>
 				<Footer />
+				<SpeedInsights />
 			</body>
 		</html>
 	)

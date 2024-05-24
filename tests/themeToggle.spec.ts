@@ -1,19 +1,27 @@
 import {test, expect} from '@playwright/test'
 
-test('toggle theme', async ({page}) => {
+test('Toggle theme', async ({page}) => {
 	await page.goto('/')
-	await page.click('[aria-label="Toggle theme"]')
+	await page.click('[aria-label="toggle theme"]')
 
 	const colorScheme = await page.evaluate(() => {
 		const html = document.querySelector('html') as Element
 		return getComputedStyle(html).getPropertyValue('color-scheme')
 	})
-	expect(colorScheme === 'dark' || colorScheme === 'light').toBeTruthy()
-	await page.click('[aria-label="Toggle theme"]')
+	const dataTheme = await page.getAttribute('html', 'data-theme')
+
+	expect(dataTheme === 'light' || dataTheme === 'dark').toBeTruthy()
+	expect(colorScheme === dataTheme).toBeTruthy()
+
+	await page.click('[aria-label="toggle theme"]')
+
 	const newColorScheme = await page.evaluate(() => {
 		const html = document.querySelector('html') as Element
 		return getComputedStyle(html).getPropertyValue('color-scheme')
 	})
-	expect(colorScheme === 'dark' || colorScheme === 'light').toBeTruthy()
+	const newDataTheme = await page.getAttribute('html', 'data-theme')
+
+	expect(colorScheme === 'light' || colorScheme === 'dark').toBeTruthy()
+	expect(newColorScheme === newDataTheme).toBeTruthy()
 	expect(newColorScheme).not.toBe(colorScheme)
 })

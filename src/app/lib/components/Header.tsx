@@ -43,7 +43,9 @@ export default function Header() {
 				</div>
 			</div>
 			<div className="navbar-center">
-				<a className="btn btn-ghost text-xl">Brand Center</a>
+				<a className="btn btn-ghost text-xl" href="/">
+					Brand Center
+				</a>
 			</div>
 			<div className="navbar-end">
 				<ThemeToggle />

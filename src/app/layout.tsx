@@ -5,6 +5,7 @@ import {Metadata} from 'next'
 import Header from './lib/components/Header'
 
 import Footer from './lib/components/Footer'
+import {ThemeProvider} from 'next-themes'
 
 export const metadata: Metadata = {
 	title: 'Brand Center',
@@ -13,11 +14,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
 	return (
-		<html lang="en">
+		<html lang="en" suppressHydrationWarning>
 			<body>
-				<Header />
-				<main>{children}</main>
-				<Footer />
+				<ThemeProvider>
+					<Header />
+					<main>{children}</main>
+					<Footer />
+				</ThemeProvider>
 				<SpeedInsights />
 			</body>
 		</html>

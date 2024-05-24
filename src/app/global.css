@@ -65,6 +65,15 @@
 		@apply transition-colors;
 	}
 
+	:root {
+		color-scheme: light;
+	}
+
+	/* dark theme setup */
+	[data-theme='dark'] {
+		color-scheme: dark;
+	}
+
 	/* SmolCSS Stephanie + Kevin-style breakout grid
 	https://www.youtube.com/watch?v=c13gpBrnGEw */
 	.content-grid,

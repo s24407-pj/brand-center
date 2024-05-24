@@ -1,23 +1,16 @@
 'use client'
+
+import {useTheme} from 'next-themes'
 import './ThemeToggle.css'
-import {useEffect} from 'react'
-import {themeChange} from 'theme-change'
 
 export default function ThemeToggle() {
-	useEffect(() => {
-		themeChange(false)
-		// 👆 false parameter is required for react project
-		return () => {
-			themeChange(false)
-		}
-	}, [])
+	const {theme, setTheme} = useTheme()
 
 	return (
 		<button
 			className="btn btn-circle btn-ghost"
-			data-toggle-theme="dark,light"
-			data-act-class="theme-toggle-active"
-			aria-label="Toggle theme"
+			aria-label="toggle theme"
+			onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
 		>
 			<svg
 				className="svg-theme-toggle h-5 w-5"

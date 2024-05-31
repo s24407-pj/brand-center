@@ -1,3 +1,4 @@
+import ClerkProfile from './ClerkProfile'
 import ThemeToggle from './ThemeToggle'
 
 export default function Header() {
@@ -34,10 +35,22 @@ export default function Header() {
 							<a>Homepage</a>
 						</li>
 						<li>
-							<a>Portfolio</a>
+							<a>Shop</a>
 						</li>
 						<li>
-							<a>Log out</a>
+							<ul className=" flex">
+								<li>
+									<ThemeToggle />
+								</li>
+								<li>
+									<button
+										className="btn btn-circle btn-ghost"
+										aria-label="language"
+									>
+										En
+									</button>
+								</li>
+							</ul>
 						</li>
 					</ul>
 				</div>
@@ -48,24 +61,6 @@ export default function Header() {
 				</a>
 			</div>
 			<div className="navbar-end">
-				<ThemeToggle />
-
-				<button className="btn btn-circle btn-ghost" aria-label="search">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						className="h-5 w-5"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke="currentColor"
-					>
-						<path
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							strokeWidth="2"
-							d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-						/>
-					</svg>
-				</button>
 				<button className="btn btn-circle btn-ghost" aria-label="notifications">
 					<div className="indicator">
 						<svg
@@ -87,6 +82,7 @@ export default function Header() {
 						</span>
 					</div>
 				</button>
+				<ClerkProfile />
 			</div>
 		</header>
 	)

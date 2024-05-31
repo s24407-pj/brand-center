@@ -1,27 +1,37 @@
-import {test, expect} from '@playwright/test'
+import {test, expect, Page} from '@playwright/test'
 
-test('Toggle theme', async ({page}) => {
-	await page.goto('/')
-	await page.click('[aria-label="toggle theme"]')
-
-	const colorScheme = await page.evaluate(() => {
+const getColorScheme = async (page: Page) => {
+	return await page.evaluate(() => {
 		const html = document.querySelector('html') as Element
 		return getComputedStyle(html).getPropertyValue('color-scheme')
 	})
-	const dataTheme = await page.getAttribute('html', 'data-theme')
+}
+
+const getDataTheme = async (page: Page) => {
+	return await page.getAttribute('html', 'data-theme')
+}
+
+const toggleTheme = async (page: Page) => {
+	await page.click('[aria-label="menu"]')
+	await page.click('[aria-label="toggle theme"]')
+}
+
+test('Toggle theme', async ({page}) => {
+	await page.goto('/')
+	await toggleTheme(page)
+
+	const colorScheme = await getColorScheme(page)
+	const dataTheme = await getDataTheme(page)
 
 	expect(dataTheme === 'light' || dataTheme === 'dark').toBeTruthy()
 	expect(colorScheme === dataTheme).toBeTruthy()
 
-	await page.click('[aria-label="toggle theme"]')
+	await toggleTheme(page)
 
-	const newColorScheme = await page.evaluate(() => {
-		const html = document.querySelector('html') as Element
-		return getComputedStyle(html).getPropertyValue('color-scheme')
-	})
-	const newDataTheme = await page.getAttribute('html', 'data-theme')
+	const newColorScheme = await getColorScheme(page)
+	const newDataTheme = await getDataTheme(page)
 
-	expect(colorScheme === 'light' || colorScheme === 'dark').toBeTruthy()
+	expect(newColorScheme === 'light' || newColorScheme === 'dark').toBeTruthy()
 	expect(newColorScheme === newDataTheme).toBeTruthy()
 	expect(newColorScheme).not.toBe(colorScheme)
 })

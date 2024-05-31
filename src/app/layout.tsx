@@ -1,5 +1,5 @@
 import './global.css'
-
+import {ClerkProvider} from '@clerk/nextjs'
 import {SpeedInsights} from '@vercel/speed-insights/next'
 import {Metadata} from 'next'
 import Header from './lib/components/Header'
@@ -14,16 +14,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
 	return (
-		<html lang="en" suppressHydrationWarning>
-			<body>
-				<ThemeProvider>
-					<Header />
-					<main>{children}</main>
-					<Footer />
-				</ThemeProvider>
-				<Analytics />
-				<SpeedInsights />
-			</body>
-		</html>
+		<ClerkProvider>
+			<html lang="en" suppressHydrationWarning>
+				<body>
+					<ThemeProvider>
+						<Header />
+						<main>{children}</main>
+						<Footer />
+					</ThemeProvider>
+					<Analytics />
+					<SpeedInsights />
+				</body>
+			</html>
+		</ClerkProvider>
 	)
 }

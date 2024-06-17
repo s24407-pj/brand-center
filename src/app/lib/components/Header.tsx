@@ -38,7 +38,7 @@ export default function Header() {
 							<a>Shop</a>
 						</li>
 						<li>
-							<ul className=" flex">
+							<ul className="flex">
 								<li>
 									<ThemeToggle />
 								</li>

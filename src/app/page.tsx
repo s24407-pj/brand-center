@@ -1,4 +1,4 @@
-import InstagramPosts from './lib/components/InstagramPosts'
+import InstagramPosts from './components/InstagramPosts'
 
 export default function Page() {
 	return (

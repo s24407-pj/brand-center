@@ -2,9 +2,9 @@ import './global.css'
 import {ClerkProvider} from '@clerk/nextjs'
 import {SpeedInsights} from '@vercel/speed-insights/next'
 import {Metadata} from 'next'
-import Header from './lib/components/Header'
+import Header from './components/Header'
 import {Analytics} from '@vercel/analytics/react'
-import Footer from './lib/components/Footer'
+import Footer from './components/Footer'
 import {ThemeProvider} from 'next-themes'
 
 export const metadata: Metadata = {

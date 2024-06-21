@@ -1,8 +1,8 @@
-// components/InstagramPosts.tsx
 'use client'
 
 import {useEffect, useState} from 'react'
 import Image from 'next/image'
+import SkeletonPost from './SkeletonPost'
 
 interface Post {
 	id: string
@@ -23,7 +23,7 @@ const InstagramPosts = () => {
 				const data = await response.json()
 
 				if (response.ok) {
-					setPosts(data.data) // Instagram API returns posts in a 'data' field
+					setPosts(data.data)
 				} else {
 					setError(data.error)
 				}
@@ -39,6 +39,16 @@ const InstagramPosts = () => {
 		return <div>Error: {error}</div>
 	}
 
+	if (posts.length === 0 && !error) {
+		return (
+			<div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+				{[...Array(3)].map((_, index) => (
+					<SkeletonPost key={index} />
+				))}
+			</div>
+		)
+	}
+
 	return (
 		<div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
 			{posts.map((post) => (
@@ -48,9 +58,8 @@ const InstagramPosts = () => {
 							<Image
 								src={post.media_url}
 								alt={post.caption || 'Instagram Post'}
-								width={400}
-								height={400}
-								className="h-auto w-full"
+								width={1080}
+								height={1350}
 							/>
 						)}
 						{post.media_type === 'VIDEO' && (

@@ -3,6 +3,7 @@
 import {useEffect, useState} from 'react'
 import Image from 'next/image'
 import SkeletonPost from './SkeletonPost'
+import {FaInstagramSquare} from 'react-icons/fa'
 
 interface Post {
 	id: string
@@ -10,6 +11,8 @@ interface Post {
 	media_type: 'IMAGE' | 'VIDEO'
 	media_url: string
 	permalink: string
+	hashTags?: string[]
+	isAvailableToBuy?: boolean
 }
 
 const InstagramPosts = () => {
@@ -24,6 +27,7 @@ const InstagramPosts = () => {
 
 				if (response.ok) {
 					setPosts(data.data)
+					analyzeHashtags(posts)
 				} else {
 					setError(data.error)
 				}
@@ -33,7 +37,11 @@ const InstagramPosts = () => {
 		}
 
 		fetchInstagramPosts()
-	}, [])
+	}, [posts])
+
+	const analyzeHashtags = (posts: Post[]) => {
+		null
+	}
 
 	if (error) {
 		return <div>Error: {error}</div>
@@ -41,7 +49,7 @@ const InstagramPosts = () => {
 
 	if (posts.length === 0 && !error) {
 		return (
-			<div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+			<div className="mx-auto flex flex-wrap justify-center gap-4">
 				{[...Array(3)].map((_, index) => (
 					<SkeletonPost key={index} />
 				))}
@@ -50,9 +58,15 @@ const InstagramPosts = () => {
 	}
 
 	return (
-		<div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+		<div className="mx-auto flex flex-wrap justify-center gap-4">
 			{posts.map((post) => (
-				<div key={post.id} className="card w-96 bg-base-100 shadow-xl">
+				<div
+					key={post.id}
+					className=" card relative min-w-80 flex-1 flex-grow-0 bg-base-100  shadow-xl md:min-w-96"
+				>
+					<a href={post.permalink}>
+						<FaInstagramSquare className="absolute right-2 top-2 size-8" />
+					</a>
 					<figure>
 						{post.media_type === 'IMAGE' && (
 							<Image

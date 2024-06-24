@@ -4,8 +4,9 @@ import {useEffect, useState} from 'react'
 import Image from 'next/image'
 import SkeletonPost from './SkeletonPost'
 import {FaInstagramSquare} from 'react-icons/fa'
+import {useShopCart} from '@/context/ShopCartContext'
 
-interface Post {
+type Post = {
 	id: string
 	caption?: string
 	media_type: 'IMAGE' | 'VIDEO'
@@ -18,6 +19,7 @@ interface Post {
 const InstagramPosts = () => {
 	const [posts, setPosts] = useState<Post[]>([])
 	const [error, setError] = useState<string | null>(null)
+	const {addToCart} = useShopCart()
 
 	useEffect(() => {
 		async function fetchInstagramPosts() {
@@ -26,8 +28,8 @@ const InstagramPosts = () => {
 				const data = await response.json()
 
 				if (response.ok) {
-					setPosts(data.data)
-					analyzeHashtags(posts)
+					const postsWithHashTags = analyzeHashtags(data.data)
+					setPosts(postsWithHashTags)
 				} else {
 					setError(data.error)
 				}
@@ -37,10 +39,18 @@ const InstagramPosts = () => {
 		}
 
 		fetchInstagramPosts()
-	}, [posts])
+	}, [])
 
-	const analyzeHashtags = (posts: Post[]) => {
-		null
+	const analyzeHashtags = (posts: Post[]): Post[] => {
+		return posts.map((post) => {
+			if (post.caption) {
+				const hashtags = post.caption.match(/#[a-zA-Z0-9_]+/g)
+				if (hashtags) {
+					post.hashTags = hashtags.map((tag) => tag.toLowerCase())
+				}
+			}
+			return post
+		})
 	}
 
 	if (error) {
@@ -82,6 +92,23 @@ const InstagramPosts = () => {
 					</figure>
 					<div className="card-body">
 						{post.caption && <h2 className="card-title">{post.caption}</h2>}
+
+						{post.hashTags?.includes('#product') && (
+							<button
+								onClick={() => {
+									addToCart({
+										id: post.id,
+										name: post.caption || 'Instagram Post',
+										price: 10,
+										quantity: 1,
+									})
+								}}
+								rel="noopener noreferrer"
+								className="btn btn-primary mt-2"
+							>
+								Buy
+							</button>
+						)}
 						<a
 							href={post.permalink}
 							target="_blank"

@@ -10,7 +10,21 @@ const config: Config = {
 	],
 
 	theme: {
-		extend: {},
+		extend: {
+			keyframes: {
+				'scale-animation': {
+					'0%, 100%': {
+						transform: 'scale(1)',
+					},
+					'50%': {
+						transform: 'scale(1.2)',
+					},
+				},
+			},
+			animation: {
+				'scale-in-out': 'scale-animation 0.5s ease',
+			},
+		},
 	},
 	daisyui: {
 		themes: [

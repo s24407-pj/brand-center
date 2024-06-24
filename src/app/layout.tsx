@@ -6,6 +6,7 @@ import Header from './components/Header'
 import {Analytics} from '@vercel/analytics/react'
 import Footer from './components/Footer'
 import {ThemeProvider} from 'next-themes'
+import {ShopCartProvider} from './context/ShopCartContext'
 
 export const metadata: Metadata = {
 	title: 'Brand Center',
@@ -15,15 +16,17 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: {children: React.ReactNode}) {
 	return (
 		<html lang="en">
-				<body>
-					<ThemeProvider>
+			<body>
+				<ThemeProvider>
+					<ShopCartProvider>
 						<Header />
 						<main>{children}</main>
 						<Footer />
-					</ThemeProvider>
-					<Analytics />
-					<SpeedInsights />
-				</body>
-			</html>
+					</ShopCartProvider>
+				</ThemeProvider>
+				<Analytics />
+				<SpeedInsights />
+			</body>
+		</html>
 	)
 }

@@ -1,4 +1,6 @@
-import ClerkProfile from './ClerkProfile'
+'use client'
+
+import {FiShoppingCart} from 'react-icons/fi'
 import ThemeToggle from './ThemeToggle'
 
 export default function Header() {
@@ -82,7 +84,6 @@ export default function Header() {
 						</span>
 					</div>
 				</button>
-				<ClerkProfile />
 			</div>
 		</header>
 	)

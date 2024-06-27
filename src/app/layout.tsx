@@ -6,6 +6,7 @@ import {Analytics} from '@vercel/analytics/react'
 import Footer from './components/Footer'
 import {ThemeProvider} from 'next-themes'
 import {ShoppingCartProvider} from './context/ShoppingCartContext'
+import { FilterPostsProvider } from './context/FilterPostsContext'
 
 export const metadata: Metadata = {
 	title: 'Brand Center',
@@ -17,11 +18,13 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
 		<html lang="en" suppressHydrationWarning>
 			<body>
 				<ThemeProvider>
-					<ShoppingCartProvider>
-						<Header />
-						<main>{children}</main>
-						<Footer />
-					</ShoppingCartProvider>
+					<FilterPostsProvider>
+						<ShoppingCartProvider>
+							<Header />
+							<main>{children}</main>
+							<Footer />
+						</ShoppingCartProvider>
+					</FilterPostsProvider>
 				</ThemeProvider>
 				<Analytics />
 				<SpeedInsights />

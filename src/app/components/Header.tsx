@@ -3,6 +3,7 @@ import DropdownMenu from './DropdownMenu'
 import ShoppingCart from './ShoppingCart'
 import SignInButton from './SignInButton'
 import DropdownProfileMenu from './DropdownProfileMenu'
+import Logo from './Logo'
 
 export default async function Header() {
 	const session = await auth()
@@ -11,12 +12,10 @@ export default async function Header() {
 	return (
 		<header className="navbar fixed top-0 z-50 border-b-2 border-[var(--fallback-bc,oklch(var(--bc)/0.1))] bg-base-100">
 			<div className="navbar-start">
-				<DropdownMenu user={user} />
+				<DropdownMenu />
 			</div>
 			<div className="navbar-center">
-				<a className="btn btn-ghost text-2xl" href="/">
-					Brand Center
-				</a>
+				<Logo />
 			</div>
 			<div className="navbar-end gap-3">
 				<ShoppingCart />

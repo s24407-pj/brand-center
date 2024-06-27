@@ -1,6 +1,10 @@
+'use client'
+import {useRouter} from 'next/navigation'
 import ThemeToggle from './ThemeToggle'
 
-export default function DropdownMenu({user}: any) {
+export default function DropdownMenu() {
+	const router = useRouter()
+
 	return (
 		<div className="dropdown">
 			<div
@@ -27,13 +31,13 @@ export default function DropdownMenu({user}: any) {
 			<div className="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow">
 				<ul tabIndex={0}>
 					<li>
-						<a>Homepage</a>
+						<a onClick={() => router.push('/')}>Homepage</a>
 					</li>
 					<li>
-						<a>Profile</a>
+						<a onClick={() => router.push('/about')}>About</a>
 					</li>
 					<li>
-						<a>Shop</a>
+						<a onClick={() => router.push('/shop')}>Shop</a>
 					</li>
 				</ul>
 				<div className="divider m-0"></div>

@@ -5,6 +5,8 @@ import Image from 'next/image'
 import {useEffect, useState} from 'react'
 import {AiFillInstagram} from 'react-icons/ai'
 import SkeletonPost from './SkeletonPost'
+import {useFilterPosts} from '@/context/FilterPostsContext'
+import {usePathname} from 'next/navigation'
 
 type Post = {
 	id: string
@@ -20,6 +22,16 @@ export default function InstagramPosts() {
 	const [posts, setPosts] = useState<Post[]>([])
 	const [error, setError] = useState<string | null>(null)
 	const {addToCart} = useShoppingCart()
+	const {filterHashtag, setFilterHashtag} = useFilterPosts()
+	const pathname = usePathname()
+
+	useEffect(() => {
+		if (pathname === '/shop') {
+			setFilterHashtag('#product')
+		} else {
+			setFilterHashtag('')
+		}
+	}, [pathname, setFilterHashtag])
 
 	useEffect(() => {
 		async function fetchInstagramPosts() {
@@ -52,6 +64,9 @@ export default function InstagramPosts() {
 			return post
 		})
 	}
+	const filteredPosts = filterHashtag
+		? posts.filter((post) => post.hashTags?.includes(filterHashtag))
+		: posts
 
 	if (error) {
 		return <div>Error: {error}</div>
@@ -69,7 +84,7 @@ export default function InstagramPosts() {
 
 	return (
 		<div className="mx-auto mt-16 flex flex-wrap justify-center gap-4 p-10">
-			{posts.map((post) => (
+			{filteredPosts.map((post) => (
 				<div
 					key={post.id}
 					className="card relative min-w-80 flex-1 flex-grow-0 shadow-xl md:min-w-96"

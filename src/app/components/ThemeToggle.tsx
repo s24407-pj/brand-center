@@ -8,7 +8,7 @@ export default function ThemeToggle() {
 
 	return (
 		<button
-			className="btn btn-circle btn-ghost"
+			className="btn btn-ghost"
 			aria-label="toggle theme"
 			onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
 		>

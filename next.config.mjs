@@ -3,8 +3,10 @@ const nextConfig = {
 	images: {
 		remotePatterns: [
 			{
-				protocol: 'https',
 				hostname: '*.cdninstagram.com',
+			},
+			{
+				hostname: '*.googleusercontent.com',
 			},
 		],
 	},

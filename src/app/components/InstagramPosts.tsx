@@ -1,10 +1,10 @@
 'use client'
 
-import {useEffect, useState} from 'react'
+import {useShoppingCart} from '@/context/ShoppingCartContext'
 import Image from 'next/image'
+import {useEffect, useState} from 'react'
+import {AiFillInstagram} from 'react-icons/ai'
 import SkeletonPost from './SkeletonPost'
-import {FaInstagramSquare} from 'react-icons/fa'
-import {useShopCart} from '@/context/ShopCartContext'
 
 type Post = {
 	id: string
@@ -16,10 +16,10 @@ type Post = {
 	isAvailableToBuy?: boolean
 }
 
-const InstagramPosts = () => {
+export default function InstagramPosts() {
 	const [posts, setPosts] = useState<Post[]>([])
 	const [error, setError] = useState<string | null>(null)
-	const {addToCart} = useShopCart()
+	const {addToCart} = useShoppingCart()
 
 	useEffect(() => {
 		async function fetchInstagramPosts() {
@@ -59,7 +59,7 @@ const InstagramPosts = () => {
 
 	if (posts.length === 0 && !error) {
 		return (
-			<div className="mx-auto flex flex-wrap justify-center gap-4">
+			<div className="mx-auto mt-16 flex flex-wrap justify-center gap-4 p-10">
 				{[...Array(3)].map((_, index) => (
 					<SkeletonPost key={index} />
 				))}
@@ -68,30 +68,37 @@ const InstagramPosts = () => {
 	}
 
 	return (
-		<div className="mx-auto flex flex-wrap justify-center gap-4">
+		<div className="mx-auto mt-16 flex flex-wrap justify-center gap-4 p-10">
 			{posts.map((post) => (
 				<div
 					key={post.id}
-					className=" card relative min-w-80 flex-1 flex-grow-0 bg-base-100  shadow-xl md:min-w-96"
+					className="card relative min-w-80 flex-1 flex-grow-0 shadow-xl md:min-w-96"
 				>
 					<a href={post.permalink}>
-						<FaInstagramSquare className="absolute right-2 top-2 size-8" />
+						<AiFillInstagram className="absolute right-2 top-2 z-10 size-8" />
 					</a>
 					<figure>
 						{post.media_type === 'IMAGE' && (
 							<Image
 								src={post.media_url}
 								alt={post.caption || 'Instagram Post'}
-								width={1080}
-								height={1350}
+								width={500}
+								height={500}
+								quality={50}
 							/>
 						)}
 						{post.media_type === 'VIDEO' && (
-							<video controls src={post.media_url} className="h-auto w-full" />
+							<video
+								muted
+								autoPlay
+								loop
+								src={post.media_url}
+								className="h-auto w-full"
+							/>
 						)}
 					</figure>
 					<div className="card-body">
-						{post.caption && <h2 className="card-title">{post.caption}</h2>}
+						{post.caption && <p>{post.caption}</p>}
 
 						{post.hashTags?.includes('#product') && (
 							<button
@@ -104,24 +111,14 @@ const InstagramPosts = () => {
 									})
 								}}
 								rel="noopener noreferrer"
-								className="btn btn-primary mt-2"
+								className="btn btn-primary mt-2 hover:scale-110"
 							>
 								Buy
 							</button>
 						)}
-						<a
-							href={post.permalink}
-							target="_blank"
-							rel="noopener noreferrer"
-							className="btn btn-primary mt-2"
-						>
-							View on Instagram
-						</a>
 					</div>
 				</div>
 			))}
 		</div>
 	)
 }
-
-export default InstagramPosts

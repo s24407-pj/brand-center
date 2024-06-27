@@ -1,15 +1,13 @@
+import '@/lib/envConfig'
 import {defineConfig} from 'drizzle-kit'
 
-import {loadEnvConfig} from '@next/env'
-
-const projectDir = process.cwd()
-loadEnvConfig(projectDir)
-
 export default defineConfig({
-	schema: './drizzle/schema.ts',
+	schema: './src/app/lib/db/schema.ts',
 	out: './drizzle/migrations',
 	dialect: 'postgresql',
 	dbCredentials: {
 		url: process.env.POSTGRES_URL!,
 	},
+	verbose: true,
+	strict: true,
 })

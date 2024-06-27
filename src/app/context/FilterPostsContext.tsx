@@ -2,8 +2,8 @@
 import React, {createContext, useContext, useState, ReactNode} from 'react'
 
 type FilterPostsContextType = {
-	filterHashtag: string
-	setFilterHashtag: (hashtag: string) => void
+	filterWord: string
+	setFilterWord: (word: string) => void
 }
 
 const FilterPostsContext = createContext<FilterPostsContextType | undefined>(
@@ -13,10 +13,10 @@ const FilterPostsContext = createContext<FilterPostsContextType | undefined>(
 export const FilterPostsProvider: React.FC<{children: ReactNode}> = ({
 	children,
 }) => {
-	const [filterHashtag, setFilterHashtag] = useState('')
+	const [filterWord, setFilterWord] = useState('')
 
 	return (
-		<FilterPostsContext.Provider value={{filterHashtag, setFilterHashtag}}>
+		<FilterPostsContext.Provider value={{filterWord, setFilterWord}}>
 			{children}
 		</FilterPostsContext.Provider>
 	)

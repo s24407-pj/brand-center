@@ -4,6 +4,7 @@ import ShoppingCart from './ShoppingCart'
 import SignInButton from './SignInButton'
 import DropdownProfileMenu from './DropdownProfileMenu'
 import Logo from './Logo'
+import SearchFilter from './SearchFilter'
 
 export default async function Header() {
 	const session = await auth()
@@ -14,10 +15,11 @@ export default async function Header() {
 			<div className="navbar-start">
 				<DropdownMenu />
 			</div>
-			<div className="navbar-center">
+			<div className="navbar-center hidden md:block">
 				<Logo />
 			</div>
 			<div className="navbar-end gap-3">
+				<SearchFilter />
 				<ShoppingCart />
 
 				{user ? (

@@ -3,7 +3,7 @@ import {SignOutButton} from './SignOutButton'
 export default function DropdownProfileMenu({profileImage}: any) {
 	return (
 		<div className="dropdown dropdown-end dropdown-bottom">
-			<div tabIndex={0} role="button" className="btn btn-circle btn-ghost m-1">
+			<div tabIndex={0} role="button" className="btn btn-circle btn-ghost m-1" aria-label='profile menu'>
 				<div className="avatar w-8">
 					<div className="rounded-full">
 						<img src={profileImage} />

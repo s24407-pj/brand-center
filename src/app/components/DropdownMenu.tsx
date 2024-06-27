@@ -29,14 +29,14 @@ export default function DropdownMenu() {
 				</svg>
 			</div>
 			<div className="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow">
-				<ul tabIndex={0}>
-					<li>
+				<ul> 
+					<li tabIndex={0} aria-label="homepage">
 						<a onClick={() => router.push('/')}>Homepage</a>
 					</li>
-					<li>
+					<li tabIndex={0} aria-label="about">
 						<a onClick={() => router.push('/about')}>About</a>
 					</li>
-					<li>
+					<li tabIndex={0} aria-label="shop">
 						<a onClick={() => router.push('/shop')}>Shop</a>
 					</li>
 				</ul>

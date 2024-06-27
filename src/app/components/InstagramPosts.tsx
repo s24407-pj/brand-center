@@ -6,7 +6,7 @@ import {useEffect, useState} from 'react'
 import {AiFillInstagram} from 'react-icons/ai'
 import SkeletonPost from './SkeletonPost'
 import {useFilterPosts} from '@/context/FilterPostsContext'
-import {usePathname} from 'next/navigation'
+import {usePathname, useSearchParams} from 'next/navigation'
 
 type Post = {
 	id: string
@@ -22,16 +22,20 @@ export default function InstagramPosts() {
 	const [posts, setPosts] = useState<Post[]>([])
 	const [error, setError] = useState<string | null>(null)
 	const {addToCart} = useShoppingCart()
-	const {filterHashtag, setFilterHashtag} = useFilterPosts()
+	const {filterWord, setFilterWord} = useFilterPosts()
+	const searchParams = useSearchParams()
 	const pathname = usePathname()
 
 	useEffect(() => {
-		if (pathname === '/shop') {
-			setFilterHashtag('#product')
+		const query = searchParams.get('query')
+		if (query) {
+			setFilterWord(query)
+		} else if (pathname === '/shop') {
+			setFilterWord('#product')
 		} else {
-			setFilterHashtag('')
+			setFilterWord('')
 		}
-	}, [pathname, setFilterHashtag])
+	}, [pathname, searchParams, setFilterWord])
 
 	useEffect(() => {
 		async function fetchInstagramPosts() {
@@ -64,8 +68,11 @@ export default function InstagramPosts() {
 			return post
 		})
 	}
-	const filteredPosts = filterHashtag
-		? posts.filter((post) => post.hashTags?.includes(filterHashtag))
+
+	const filteredPosts = filterWord
+		? posts.filter((post) =>
+				post.caption?.toLowerCase().includes(filterWord.toLowerCase()),
+			)
 		: posts
 
 	if (error) {

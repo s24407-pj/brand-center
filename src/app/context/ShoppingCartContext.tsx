@@ -5,6 +5,7 @@ import {createContext, useContext, useState, ReactNode} from 'react'
 type Product = {
 	id: string
 	name: string
+	image: string
 	price: number
 	quantity: number
 }
@@ -12,6 +13,7 @@ type Product = {
 type ShoppingCartContextType = {
 	shoppingCart: Product[]
 	addToCart: (product: Product) => void
+	setQuantity: (quantity: number,id:string) => void
 }
 
 const ShoppingCartContext = createContext<ShoppingCartContextType | undefined>(
@@ -24,9 +26,21 @@ export const ShoppingCartProvider = ({children}: {children: ReactNode}) => {
 	const addToCart = (product: Product) => {
 		setShoppingCart((prevCart) => [...prevCart, product])
 	}
+	const setQuantity = (quantity: number, id: string) => {
+		setShoppingCart((prevCart) => {
+			const updatedCart = prevCart.map((product) => {
+				if (product.id === id) {
+					return {...product, quantity}
+				}
+				return product
+			})
+			return updatedCart
+		})
+	
+	}
 
 	return (
-		<ShoppingCartContext.Provider value={{shoppingCart, addToCart}}>
+		<ShoppingCartContext.Provider value={{shoppingCart, addToCart,setQuantity}}>
 			{children}
 		</ShoppingCartContext.Provider>
 	)

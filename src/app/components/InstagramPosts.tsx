@@ -120,7 +120,8 @@ export default function InstagramPosts() {
 								onClick={() => {
 									addToCart({
 										id: post.id,
-										name: post.caption || 'Instagram Post',
+										name: post.caption || 'Product',
+										image: post.media_url,
 										price: 10,
 										quantity: 1,
 									})
@@ -128,7 +129,7 @@ export default function InstagramPosts() {
 								rel="noopener noreferrer"
 								className="btn btn-primary mt-2 hover:scale-110"
 							>
-								Buy
+								Add to cart
 							</button>
 						)}
 					</div>
